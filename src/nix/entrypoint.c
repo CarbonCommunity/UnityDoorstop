@@ -91,16 +91,22 @@ __attribute__((constructor)) void doorstop_ctor() {
     }
 
     if (plthook_replace(hook, "dlsym", &dlsym_hook, NULL) != 0)
-        printf("Failed to hook dlsym, ignoring it. Error: %s\n",
-               plthook_error());
+    {
+        // printf("Failed to hook dlsym, ignoring it. Error: %s\n",
+        //        plthook_error());
+    }
 
     if (plthook_replace(hook, "fclose", &fclose_hook, NULL) != 0)
-        printf("Failed to hook fclose, ignoring it. Error: %s\n",
-               plthook_error());
+    {
+        // printf("Failed to hook fclose, ignoring it. Error: %s\n",
+        //        plthook_error());
+    }
 
     if (plthook_replace(hook, "dup2", &dup2_hook, NULL) != 0)
-        printf("Failed to hook dup2, ignoring it. Error: %s\n",
-               plthook_error());
+    {
+        // printf("Failed to hook dup2, ignoring it. Error: %s\n",
+        //        plthook_error());
+    }
 
 #if defined(__APPLE__)
     /*
@@ -111,8 +117,8 @@ __attribute__((constructor)) void doorstop_ctor() {
     void *mono_handle = plthook_handle_by_name("libmono");
 
     if (plthook_replace(hook, "mono_jit_init_version", &init_mono, NULL) != 0)
-        printf("Failed to hook jit_init_version, ignoring it. Error: %s\n",
-               plthook_error());
+        // printf("Failed to hook jit_init_version, ignoring it. Error: %s\n",
+        //        plthook_error());
     else if (mono_handle)
         load_mono_funcs(mono_handle);
 #endif
